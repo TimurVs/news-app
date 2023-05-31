@@ -1,0 +1,11 @@
+<div class='py-4 px-6 border rounded flex items-center flex-col mb-2'>
+  <p>Дата публикации: <span [ngStyle]="{fontWeight: 'bold'}">{{news.publishedDate | date}}</span></p>
+  <img [src]='news.titleImageUrl' [alt]='news.title' class='w-1/2 mt-2
+   mb-2'>
+  <p><span class='font-bold'>{{ news.description }}</span> </p>
+  <button [ngClass]="{'bg-yellow-400': !details, 'bg-blue-400': details}"
+  (click)='details = !details' class='border py-2 px-2 bg-amber-200'>{{ details ? ' Свернуть' : 'Развернуть' }}</button>
+  <div *ngIf='details'>
+<!--    <p> {{news.description}}</p>-->
+  </div>
+</div>

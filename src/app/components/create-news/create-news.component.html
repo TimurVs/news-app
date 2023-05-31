@@ -1,0 +1,28 @@
+<form [formGroup]='form' (ngSubmit)='onSubmit()'>
+
+  <input type='text'
+  class='border w-full py-2 px-4 mb-2'
+  placeholder='Заголовок'
+  formControlName='title'
+  appFocus
+  >
+
+  <input type='text'
+    class='border w-full py-2 px-4 mb-2'
+    placeholder='Описание'
+    formControlName='description'
+    appFocus
+  >
+
+  <input type='text'
+    class='border w-full py-2 px-4 mb-2'
+    placeholder='Изображение'
+    formControlName='titleImageUrl'
+    appFocus
+  >
+
+  <p class='text-red-400 font-medium mb-2' *ngIf="title.errors?.minlength && title.touched">Title too short {{title.value.length}}</p>
+
+  <button type='submit' class='py-2 px-4 bg-blue-400 text-white'>Создать новость</button>
+
+</form>
