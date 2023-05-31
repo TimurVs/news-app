@@ -1,5 +1,5 @@
-<div class="items max-w-2xl container mx-auto pt-5" #scrollContainer>
-  <div>
+<div class="max-w-2xl container mx-auto pt-5" #scrollContainer>
+  <div class='items'>
     <app-news *ngFor="let item of items$ | async" [news]="item"></app-news>
   </div>
 
@@ -8,5 +8,6 @@
   </app-modal>
 
   <button (click)="modalService.open()" class="rounded-full bg-red-400 fixed right-5 bottom-5 text-white py-2 px-4">+</button>
+
 </div>
 
