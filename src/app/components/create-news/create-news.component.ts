@@ -1,51 +1,46 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { NewsService } from '../../services/news.service'
-import { ModalService } from '../../services/modal.service'
 
 @Component({
   selector: 'app-create-news',
   templateUrl: './create-news.component.html',
   styleUrls: ['./create-news.component.scss']
 })
-export class CreateNewsComponent implements OnInit{
 
-  constructor(private newsService: NewsService, private modalService: ModalService) {}
+export class CreateNewsComponent {
+  recordForm = new FormGroup({
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    titleImageUrl: new FormControl(''),
+  });
+  @Output() imageSelected = new EventEmitter<File>();
 
-  form = new FormGroup({
-    title: new FormControl<string>('', [
-      Validators.required,
-      Validators.minLength(6)
-    ]),
-    description: new FormControl<string>('', [
-      Validators.required,
-      Validators.minLength(6)
-    ]),
-    titleImageUrl: new FormControl<string>('')
-  })
-
-  get title() {
-    return this.form.controls.title as FormControl
+onImageSelected(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      this.recordForm.patchValue({
+        titleImageUrl: result,
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
-  get description() {
-    return this.form.controls.description as FormControl
+
+
+  onSubmit(): void {
+    const title = this.recordForm.get('title')?.value;
+    const description = this.recordForm.get('description')?.value;
+    const titleImageUrl = this.recordForm.get('titleImageUrl')?.value;
+
+    if (title && description) {
+      const record = { title, description, titleImageUrl };
+      const records = JSON.parse(localStorage.getItem('records') || '[]');
+      records.unshift(record);
+      localStorage.setItem('records', JSON.stringify(records));
+      this.recordForm.reset();
+    }
   }
 
-  get titleImageUrl() {
-    return this.form.controls.titleImageUrl as FormControl
-  }
 
-  ngOnInit(): void {}
-
-  onSubmit() {
-    this.newsService.createNews({
-      title: this.form.value.title as string,
-      description: this.form.value.description as string,
-      titleImageUrl: this.form.value.titleImageUrl as string,
-    }).subscribe(() => {
-      this.modalService.close()
-
-    })
-  }
 }

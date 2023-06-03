@@ -13,7 +13,7 @@ import { BehaviorSubject, fromEvent, map, Observable, take, Subscription } from 
 export class AppComponent implements AfterViewInit {
   private currentPage = 1;
   private pageSize = 10;
-  private totalPages = 20; //можно менять по желанию
+  private totalPages = 3; //можно менять по желанию
 
   public isLoading = false
 

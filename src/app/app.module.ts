@@ -10,8 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FilterProductsPipe } from './pipes/filter-products.pipe';
 import { ModalComponent } from './components/modal/modal.component';
 import { FocusDirective } from './directives/focus.directive';
-import { PostComponent } from './components/post-component/post-component.component'
-import { CreateNewsComponent } from './components/create-news/create-news.component'
+import { CreateNewsComponent } from './components/create-news/create-news.component';
+import { ImageInputComponent } from './components/image-input/image-input.component';
+import { OneNewsComponent } from './components/one-news/one-news.component';
+
 
 @NgModule({
   declarations: [
@@ -21,8 +23,9 @@ import { CreateNewsComponent } from './components/create-news/create-news.compon
     FilterProductsPipe,
     ModalComponent,
     FocusDirective,
-    PostComponent,
-    CreateNewsComponent
+    CreateNewsComponent,
+    ImageInputComponent,
+    OneNewsComponent,
   ],
   imports: [
     BrowserModule,

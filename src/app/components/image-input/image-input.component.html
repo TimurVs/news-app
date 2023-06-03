@@ -1,0 +1,6 @@
+<div class="file-upload">
+  <input id="file-upload" type="file" accept=".jpg,.jpeg,.png" (change)="onFileSelected($event)">
+  <img *ngIf="imageUrl" [src]="imageUrl" alt="Выбранное изображение">
+  <label for="file-upload">Выбрать файл</label>
+</div>
+

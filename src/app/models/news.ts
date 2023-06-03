@@ -10,3 +10,16 @@ export interface INews {
   pageNumber?: number,
   pageSize?: number
 }
+
+export interface IFullNews {
+  id: number;
+  title: string;
+  url: string;
+  text: string;
+  description: string;
+  publishedDate: Date;
+  titleImageUrl: string;
+  categoryType: string;
+  content: string;
+}
+

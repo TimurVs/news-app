@@ -1,4 +1,6 @@
-<div class="max-w-2xl container mx-auto pt-5" #scrollContainer>
+<router-outlet></router-outlet>
+
+<div class="max-w-2xl container mx-auto pt-5">
   <div class='items'>
     <app-news *ngFor="let item of items$ | async" [news]="item"></app-news>
   </div>
