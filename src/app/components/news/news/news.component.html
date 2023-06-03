@@ -1,15 +1,18 @@
-<ng-container *ngIf='news'>
-  <div class='py-4 px-6 border rounded flex items-center flex-col mb-2'>
-    <p>Дата публикации: <span [ngStyle]="{fontWeight: 'bold'}">{{news.publishedDate | date}}</span></p>
-    <img [src]='news.titleImageUrl' [alt]='news.title' class='w-1/2 mt-2 mb-2'>
-    <p><span class='font-bold'>{{ news.description }}</span> </p>
-    <button (click)="viewFullNews(news.url)" [ngClass]="{'bg-yellow-400': !details, 'bg-blue-400': details}">Details</button>
+<div class="max-w-2xl container mx-auto pt-5">
+  <div class='items'>
+
+    <ng-container *ngFor='let items of items$ | async'>
+      <app-short-news [items]='items'></app-short-news>
+    </ng-container>
   </div>
-</ng-container>
 
+  <app-modal *ngIf="modalService.isVisible$ | async" title="Добавить новость">
+    <app-create-news></app-create-news>
+  </app-modal>
 
+  <button (click)="modalService.open()" class="rounded-full bg-red-400 fixed right-5 bottom-5 text-white py-2 px-4">+</button>
 
-
+</div>
 
 
 <!--<div class='py-4 px-6 border rounded flex items-center flex-col mb-2'>-->

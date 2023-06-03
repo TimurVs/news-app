@@ -1,0 +1,10 @@
+<ng-container *ngIf='items'>
+  <a (click)="onUrlClick()">
+    <div class='py-4 px-6 border rounded flex items-center flex-col mb-2'>
+      <p>Дата публикации: <span [ngStyle]="{fontWeight: 'bold'}">{{items.publishedDate | date}}</span></p>
+      <img [src]='items.titleImageUrl' [alt]='items.title' class='w-1/2 mt-2 mb-2'>
+      <p><span class='font-bold'>{{ items.description }}</span></p>
+    </div>
+  </a>
+</ng-container>
+

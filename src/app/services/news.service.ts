@@ -20,10 +20,13 @@ import { ErrorService } from './error.service'
     return this.http.get<Array<INews>>(`https://webapi.autodoc.ru/api/news/${pageNumber}/${pageSize}`);
   }
 
-  getFullNews(url: string): Observable<IFullNews> {
-    console.log('----->>>222', url)
-    return this.http.get<IFullNews>(`https://webapi.autodoc.ru/api/news/item/${url}`);
+  getFullNews(urlNews: string): Observable<IFullNews> {
+    console.log('----->>>>>>URLNEWS', urlNews)
+    return this.http.get<IFullNews>(`https://webapi.autodoc.ru/api/news/item/${urlNews}`).pipe(
+      catchError(this.errorHandler.bind(this))
+    );
   }
+
 
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)

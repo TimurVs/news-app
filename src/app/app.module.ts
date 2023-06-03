@@ -12,7 +12,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FocusDirective } from './directives/focus.directive';
 import { CreateNewsComponent } from './components/create-news/create-news.component';
 import { ImageInputComponent } from './components/image-input/image-input.component';
-import { OneNewsComponent } from './components/one-news/one-news.component';
+import { FullNewsComponent } from './components/full-news/full-news.component';
+import { ShortNewsComponent } from './components/short-news/short-news.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { OneNewsComponent } from './components/one-news/one-news.component';
     FocusDirective,
     CreateNewsComponent,
     ImageInputComponent,
-    OneNewsComponent,
+    FullNewsComponent,
+    ShortNewsComponent,
   ],
   imports: [
     BrowserModule,
