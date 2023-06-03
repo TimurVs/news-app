@@ -1,20 +1,14 @@
 <ng-container *ngIf="fullNews$ | async as fullNews">
   <div class="news-card-full">
 
-    <p>URL новости: {{ urlNews }}</p>
-
     <div class="news-card-full__title">
       {{ fullNews.title }}
     </div>
-
     <div class="news-card-full__category-type">
       {{ fullNews.categoryType }}
     </div>
-
     <div class="news-card-full__description" [innerHtml]="fullNews.text">
-
     </div>
-
   </div>
 </ng-container>
 

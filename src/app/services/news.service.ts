@@ -20,7 +20,7 @@ import { ErrorService } from './error.service'
     return this.http.get<Array<INews>>(`https://webapi.autodoc.ru/api/news/${pageNumber}/${pageSize}`);
   }
 
-  getFullNews(urlNews: string): Observable<IFullNews> {
+  getFullNews(urlNews: string | null): Observable<IFullNews> {
     console.log('----->>>>>>URLNEWS', urlNews)
     return this.http.get<IFullNews>(`https://webapi.autodoc.ru/api/news/item/${urlNews}`).pipe(
       catchError(this.errorHandler.bind(this))

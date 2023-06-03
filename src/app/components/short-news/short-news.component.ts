@@ -9,12 +9,12 @@ import { Router } from '@angular/router'
 })
 export class ShortNewsComponent implements OnInit{
 
-  @Input('items') public items: INews
+  @Input() public item: INews
 
   constructor(private router: Router) {}
 
   public onUrlClick(): void {
-    this.router.navigate(['/full-news', this.items.url]);
+    this.router.navigate(['/full-news', this.item.url]);
   }
 
 
