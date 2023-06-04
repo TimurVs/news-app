@@ -15,24 +15,11 @@ export class FullNewsComponent implements OnInit{
   public fullNews$: Observable<IFullNews> | null = null;
   private url: string | null;
 
-
-
-  // @Input('urlNews') public set setUrlNews(url: string) {
-  //   if (url) {
-  //     this.urlNews = url;
-  //     this.fullNews$ = this.newsService.getFullNews(url);
-  //   }
-  // }
-
   constructor(private newsService: NewsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('url');
     this.fullNews$ = this.newsService.getFullNews(this.url);
-
-    console.log('------>>>>>>', this.url)
-
-
   }
 
 }

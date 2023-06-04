@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core'
 import { INews } from '../../../models/news'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject, fromEvent, Observable, Subscription } from 'rxjs'
 import { NewsService } from '../../../services/news.service'
 import { ModalService } from '../../../services/modal.service'
@@ -13,7 +13,7 @@ import { ModalService } from '../../../services/modal.service'
 export class NewsComponent implements AfterViewInit, OnInit {
   private currentPage = 1;
   private pageSize = 10;
-  private totalPages = 100; //можно менять по желанию
+  private totalPages = 100;
 
   urlNews: string;
 
@@ -37,7 +37,6 @@ export class NewsComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    // const content = document.querySelector('.items') as HTMLElement;
     const scroll$ = fromEvent(window, 'scroll')
 
     this.scrollSubscription = scroll$.subscribe((scrollPos) => {
