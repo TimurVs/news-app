@@ -5,7 +5,7 @@ export interface INews {
   publishedDate?:Date,
   url?: string,
   fullUrl?: string,
-  titleImageUrl?: string,
+  titleImageUrl?: string | null,
   categoryType?: string,
   pageNumber?: number,
   pageSize?: number
