@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject, fromEvent, Observable, Subscription } from 'rxjs'
 import { NewsService } from '../../../services/news.service'
 import { ModalService } from '../../../services/modal.service'
+import { NewsLocalStorageService } from '../../../services/news-local.service'
 
 @Component({
   selector: 'app-news',
@@ -15,6 +16,8 @@ export class NewsComponent implements AfterViewInit, OnInit {
   private pageSize = 10;
   private totalPages = 100;
 
+  newsListLocal: INews[] = [];
+
   urlNews: string;
 
   public isLoading = false
@@ -24,16 +27,26 @@ export class NewsComponent implements AfterViewInit, OnInit {
 
   private scrollSubscription: Subscription;
 
-  constructor(private activateRoute: ActivatedRoute, public newsService: NewsService, public modalService: ModalService) {
+  constructor(private activateRoute: ActivatedRoute, public newsService: NewsService, public modalService: ModalService, public NewsLocalStorageService: NewsLocalStorageService ) {
     this.urlNews = this.activateRoute.snapshot.params['urlNews'];
   }
 
   ngOnInit() {
     this.newsService.getAllNews(this.currentPage, this.pageSize).subscribe((data: any) => {
-      this.obsArray.next(data.news);
-    })
+      const newsList = [...this.newsListLocal, ...data.news];
+      this.obsArray.next(newsList);
+    });
+
+    this.NewsLocalStorageService.getNewsList().subscribe(newsList => {
+      this.newsListLocal = newsList;
+      const obsArrayValue = this.obsArray.getValue();
+      const newObsArrayValue = [...newsList, ...obsArrayValue];
+      this.obsArray.next(newObsArrayValue);
+    });
+    console.log('--->>>>LOCALLIST',this.newsListLocal)
 
     this.items$ = this.obsArray.asObservable();
+
   }
 
   ngAfterViewInit() {

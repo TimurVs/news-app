@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { catchError, Observable, retry, tap, throwError } from 'rxjs'
 import { INews, IFullNews } from '../models/news'
 import { ErrorService } from './error.service'
+import { NewsLocalStorageService } from './news-local.service'
 
 @Injectable(
   {
@@ -12,7 +13,8 @@ import { ErrorService } from './error.service'
   export class NewsService {
     constructor(
       private http: HttpClient,
-      private errorService: ErrorService ) {}
+      private errorService: ErrorService,
+      private newsLocalStorageService: NewsLocalStorageService) {}
 
   news: INews[]
 
@@ -32,16 +34,23 @@ import { ErrorService } from './error.service'
     );
   }
 
-
-  createNews(news: INews): Observable<INews> {
+  createNews(news: INews, imageFile?: File) {
+    const formData = new FormData();
+    formData.append('title', news.title);
+    formData.append('description', news.description);
+    if (news.publishedDate) {
+      formData.append('publishedDate', news.publishedDate.toISOString());
+    }
+    if (imageFile) {
+      formData.append('titleImage', imageFile, imageFile.name);
+    }
     const newsList = JSON.parse(localStorage.getItem('news') || '[]');
-    console.log('LOCAL', newsList)
     newsList.unshift(news);
     localStorage.setItem('news', JSON.stringify(newsList));
-    return this.http.post<INews>('https://webapi.autodoc.ru/api/news', news)
+    this.newsLocalStorageService.updateNewsList();
+    return this.http.post<INews>('http://localhost:4300/', formData)
       .pipe(
         retry(2),
-        tap(prod => this.news.push(prod)),
         catchError(this.errorHandler.bind(this)))
   }
 
